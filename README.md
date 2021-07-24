@@ -8,3 +8,7 @@ TODO:
   items
   inventory
   npcs
+
+art made by roaxial and me
+
+Contact: TheBearSlicer#2382 on discord
