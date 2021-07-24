@@ -9,6 +9,7 @@ app = Ursina()
 grass_texture = load_texture("assets/textures/roax_grass.png")
 stone_texture = load_texture("assets/textures/roax_stone.png")
 dirt_texture = load_texture("assets/textures/roax_dirt.png")
+wood_texture = load_texture("assets/textures/roax_wood.png")
 format_texture = load_texture("assets/format.png")
 
 block_to_place = 1
@@ -18,6 +19,12 @@ def update():
     if held_keys['1']: block_to_place = 1
     if held_keys['2']: block_to_place = 2
     if held_keys['3']: block_to_place = 3
+    if held_keys['4']: block_to_place = 4
+    if held_keys['5']: block_to_place = 5
+    if held_keys['6']: block_to_place = 6
+    if held_keys['7']: block_to_place = 7
+    if held_keys['8']: block_to_place = 8
+    if held_keys['9']: block_to_place = 9
 
     # ect
     
@@ -41,12 +48,16 @@ class Voxel(Button):
 
             if key == 'right mouse down':
                 if block_to_place == 1:
-                    grass_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=grass_texture)
+                    self.place_block(grass_texture)
                 if block_to_place == 2:
-                    dirt_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=dirt_texture)
+                    self.place_block(dirt_texture)
                 if block_to_place == 3:
-                    stone_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=stone_texture)
-
+                    self.place_block(stone_texture)
+                if block_to_place == 4:
+                    self.place_block(wood_texture)
+                    
+    def place_block(self, texture):
+        vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
 
 heightmap = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -99,9 +110,6 @@ def generate_chunk(input_heightmap, top_texture, bottom_texture, fill, z_offset=
 
 
 generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False)
-generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False, 16, 0)
-generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False, 0, 16)
-generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False, 16, 16)
 
 player = FirstPersonController()
 

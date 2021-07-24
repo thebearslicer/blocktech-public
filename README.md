@@ -9,6 +9,8 @@ TODO:
   inventory
   npcs
 
-art made by roaxial and me
+Art:
+ Roaxial
+ LLamadude
 
 Contact: TheBearSlicer#2382 on discord
