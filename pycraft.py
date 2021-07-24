@@ -1,3 +1,4 @@
+from inspect import currentframe
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from opensimplex import *
@@ -7,10 +8,18 @@ from opensimplex import *
 
 app = Ursina()
 
-grass_texture = load_texture("assets/textures/grass.png")
+grass_texture = load_texture("assets/textures/roax_grass.png")
 format_texture = load_texture("assets/format.png")
 
+block_to_place = 0
 
+def update():
+    global block_to_place
+    if held_keys['1']: block_to_place = 1
+    if held_keys['2']: block_to_place = 2
+
+    # ect
+    
 class Voxel(Button):
     def __init__(self, pos=(0, 0, 0), given_texture='white_cube'):
         super().__init__(
@@ -30,7 +39,8 @@ class Voxel(Button):
                 destroy(self)
 
             if key == 'right mouse down':
-                new_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=self.texture)
+                if block_to_place == 0:
+                    grass_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=grass_texture)
 
 
 heightmap = [
