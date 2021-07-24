@@ -9,6 +9,7 @@ from opensimplex import *
 app = Ursina()
 
 grass_texture = load_texture("assets/textures/roax_grass.png")
+stone_texture = load_texture("assets/textures/roax_stone.png")
 format_texture = load_texture("assets/format.png")
 
 block_to_place = 1
@@ -41,6 +42,8 @@ class Voxel(Button):
             if key == 'right mouse down':
                 if block_to_place == 1:
                     grass_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=grass_texture)
+                if block_to_place == 2:
+                    stone_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=stone_texture)
 
 
 heightmap = [
