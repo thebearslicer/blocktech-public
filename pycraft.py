@@ -11,7 +11,7 @@ app = Ursina()
 grass_texture = load_texture("assets/textures/roax_grass.png")
 format_texture = load_texture("assets/format.png")
 
-block_to_place = 0
+block_to_place = 1
 
 def update():
     global block_to_place
@@ -39,7 +39,7 @@ class Voxel(Button):
                 destroy(self)
 
             if key == 'right mouse down':
-                if block_to_place == 0:
+                if block_to_place == 1:
                     grass_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=grass_texture)
 
 
@@ -95,10 +95,10 @@ def generate_chunk(input_heightmap, top_texture, bottom_texture, fill, z_offset=
 # pivot = Entity()
 # AmbientLight(parent=pivot, y=3, x=8, z=8, shadows=True, texture=load_texture("assets/dirt.png"))
 
-generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True)
-generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 16, 0)
-generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 0, 16)
-generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 16, 16)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False, 16, 0)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False, 0, 16)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False, 16, 16)
 
 player = FirstPersonController()
 
