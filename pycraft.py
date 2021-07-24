@@ -2,14 +2,13 @@ from inspect import currentframe
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from opensimplex import *
-
-# from PIL import Image
-# from ursina.shaders import lit_with_shadows_shader
+from ursina.shaders import lit_with_shadows_shader
 
 app = Ursina()
 
 grass_texture = load_texture("assets/textures/roax_grass.png")
 stone_texture = load_texture("assets/textures/roax_stone.png")
+dirt_texture = load_texture("assets/textures/roax_dirt.png")
 format_texture = load_texture("assets/format.png")
 
 block_to_place = 1
@@ -18,6 +17,7 @@ def update():
     global block_to_place
     if held_keys['1']: block_to_place = 1
     if held_keys['2']: block_to_place = 2
+    if held_keys['3']: block_to_place = 3
 
     # ect
     
@@ -30,7 +30,7 @@ class Voxel(Button):
             origin_y=0.5,
             texture=given_texture,
             scale=0.5,
-            color=color.color(0, 0, random.uniform(0.9, 1))
+            color=color.color(0, 0, random.uniform(0.9, 1)),
             # shader=lit_with_shadows_shader
         )
 
@@ -43,6 +43,8 @@ class Voxel(Button):
                 if block_to_place == 1:
                     grass_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=grass_texture)
                 if block_to_place == 2:
+                    dirt_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=dirt_texture)
+                if block_to_place == 3:
                     stone_voxel = Voxel(pos=(self.position + mouse.normal), given_texture=stone_texture)
 
 
@@ -95,8 +97,6 @@ def generate_chunk(input_heightmap, top_texture, bottom_texture, fill, z_offset=
                     input_heightmap[x][z] -= 1
 
 
-# pivot = Entity()
-# AmbientLight(parent=pivot, y=3, x=8, z=8, shadows=True, texture=load_texture("assets/dirt.png"))
 
 generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False)
 generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False, 16, 0)
