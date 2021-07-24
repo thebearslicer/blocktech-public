@@ -85,11 +85,6 @@ def generate_chunk(input_heightmap, top_texture, bottom_texture, fill, z_offset=
 # pivot = Entity()
 # AmbientLight(parent=pivot, y=3, x=8, z=8, shadows=True, texture=load_texture("assets/dirt.png"))
 
-# for z in range(16):
-#     for x in range(16):
-#         for y in range(1):
-#             voxel_grass = Voxel(pos=(x, y, z), given_texture=grass_texture)
-
 generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True)
 generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 16, 0)
 generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 0, 16)
