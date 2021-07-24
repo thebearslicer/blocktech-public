@@ -70,7 +70,7 @@ def create_heightmap(size_z, size_x):
     return heightmap
 
 
-def generate_world(input_heightmap, top_texture, bottom_texture, fill, z_offset=0, x_offset=0):
+def generate_chunk(input_heightmap, top_texture, bottom_texture, fill, z_offset=0, x_offset=0):
     for z in range(len(input_heightmap)):  # iterate over all lists in input_heightmap
         for x in range(len(input_heightmap[z])):  # iterate over current sublist
             grass_generate = Voxel(pos=(x + x_offset, input_heightmap[x][z], z + z_offset), given_texture=top_texture)  # create top layer
@@ -90,10 +90,10 @@ def generate_world(input_heightmap, top_texture, bottom_texture, fill, z_offset=
 #         for y in range(1):
 #             voxel_grass = Voxel(pos=(x, y, z), given_texture=grass_texture)
 
-generate_world(create_heightmap(16, 16), grass_texture, grass_texture, True)
-generate_world(create_heightmap(16, 16), grass_texture, grass_texture, True, 16, 0)
-generate_world(create_heightmap(16, 16), grass_texture, grass_texture, True, 0, 16)
-generate_world(create_heightmap(16, 16), grass_texture, grass_texture, True, 16, 16)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 16, 0)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 0, 16)
+generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture, True, 16, 16)
 
 player = FirstPersonController()
 
