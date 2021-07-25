@@ -20,6 +20,11 @@ format_texture = load_texture("assets/format.png")
 
 block_to_place = 1
 
+
+player = FirstPersonController()
+
+sky = Sky()
+
 def update():
     global block_to_place
     if held_keys['1']: block_to_place = 1
@@ -31,8 +36,10 @@ def update():
     if held_keys['7']: block_to_place = 7
     if held_keys['8']: block_to_place = 8
     if held_keys['9']: block_to_place = 9
+    
+    if player.y < -50:
+        player.position = (0, 1, 0)    
 
-    # ect
     
 class Voxel(Button):
     def __init__(self, pos=(0, 0, 0), given_texture='white_cube'):
@@ -149,8 +156,5 @@ generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False)
 generate_tree(random.randint(1, 14), 1, random.randint(1, 14))
 
 
-player = FirstPersonController()
-
-sky = Sky()
 
 app.run()
