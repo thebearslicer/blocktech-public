@@ -17,7 +17,7 @@ Art:
 
 Contact: 
  TheBearSlicer#2382 on discord
- _Llamadude_#1337 on discord
+ Llamadude#1337 on discord
  mumblety#4576 on discord
  Roaxial#7575 on discord
  Pom#6759 on discord
