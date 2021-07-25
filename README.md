@@ -8,6 +8,7 @@ TODO:
   items
   inventory
   npcs
+  UI
 
 Art:
  Roaxial
