@@ -1,4 +1,5 @@
 from inspect import currentframe
+from direct.showbase.PythonUtil import EnumIter
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from opensimplex import *
@@ -10,9 +11,11 @@ app.title = "PyCraft"
 grass_texture = load_texture("assets/textures/roax_grass.png")
 stone_texture = load_texture("assets/textures/roax_stone.png")
 dirt_texture = load_texture("assets/textures/roax_dirt.png")
-wood_texture = load_texture("assets/textures/roax_wood.png")
+wood_texture = load_texture("assets/textures/llama_wood.png")
 leaves_texture = load_texture("assets/textures/roax_leaves.png")
 stone_brick_texture = load_texture("assets/textures/roax_stone_bricks.png")
+planks_texture = load_texture("assets/textures/roax_planks.png")
+sky_texture = load_texture("assets/textures/roax_skybox.png")
 format_texture = load_texture("assets/format.png")
 
 block_to_place = 1
@@ -62,9 +65,25 @@ class Voxel(Button):
                     self.place_block(leaves_texture)
                 if block_to_place == 6:
                     self.place_block(stone_brick_texture)
+                if block_to_place == 7:
+                    self.place_block(planks_texture)
                     
     def place_block(self, texture):
         vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
+
+class Sky(Entity):
+    def __init__(self):
+        super().__init__(
+            parent = scene,
+            model = 'assets/block.obj',
+            texture = sky_texture,
+            scale = 200,
+            double_sided = True
+        )
+        
+
+
+
 
 heightmap = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -131,5 +150,7 @@ generate_tree(random.randint(1, 14), 1, random.randint(1, 14))
 
 
 player = FirstPersonController()
+
+sky = Sky()
 
 app.run()
