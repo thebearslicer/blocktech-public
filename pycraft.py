@@ -11,6 +11,7 @@ stone_texture = load_texture("assets/textures/roax_stone.png")
 dirt_texture = load_texture("assets/textures/roax_dirt.png")
 wood_texture = load_texture("assets/textures/roax_wood.png")
 leaves_texture = load_texture("assets/textures/roax_leaves.png")
+stone_texture = load_texture("assets/textures/roax_stone_bricks.png")
 format_texture = load_texture("assets/format.png")
 
 block_to_place = 1
@@ -58,6 +59,8 @@ class Voxel(Button):
                     self.place_block(wood_texture)
                 if block_to_place == 5:
                     self.place_block(leaves_texture)
+                if block_to_place == 6:
+                    self.place_block(stone_texture)
                     
     def place_block(self, texture):
         vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
@@ -110,9 +113,20 @@ def generate_chunk(input_heightmap, top_texture, bottom_texture, fill, z_offset=
                                   given_texture=bottom_texture)  # this loop makes sure there aren't any weird gaps in generation
                     input_heightmap[x][z] -= 1
 
-
+def generate_tree(x, y, z):
+    trunk_bottom = Voxel(pos=(1 + x, 0 + y, z + 1), given_texture=wood_texture)
+    trunk_second = Voxel(pos=(1 + x, 1 + y, z + 1), given_texture=wood_texture)
+    trunk_third  = Voxel(pos=(1 + x, 2 + y, z + 1), given_texture=wood_texture)
+    top_leaf     = Voxel(pos=(1 + x, 3 + y, z + 1), given_texture=leaves_texture)
+    left_leaf    = Voxel(pos=(0 + x, 2 + y, z + 1), given_texture=leaves_texture)
+    right_leaf   = Voxel(pos=(2 + x, 2 + y, z + 1), given_texture=leaves_texture)
+    behind_leaf  = Voxel(pos=(1 + x, 2 + y, z + 2), given_texture=leaves_texture)
+    forward_leaf = Voxel(pos=(1 + x, 2 + y, z + 0), given_texture=leaves_texture)
+ 
 
 generate_chunk(create_heightmap(16, 16), grass_texture, grass_texture,  False)
+generate_tree(random.randint(1, 15), 1, random.randint(1, 15))
+
 
 player = FirstPersonController()
 
