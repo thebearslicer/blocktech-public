@@ -1,6 +1,18 @@
+body {
+    background-color: #3C3C4C;
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    font-style: normal;
+    font-weight: normal;
+    src: url('assets/fonts/Minecraft.woff') format('woff');
+    }
+
 h1 {
-    margin-right: auto;
-    margin-left: auto;
-    color: darkblue;
-    font-size: xx-large;   
+    font-family: 'Minecraft';
+    text-align: center;
+    font-size: 100px;
+    color: rgb(255, 255, 255);   
+    filter: drop-shadow(5px 5px darkgray)
 }
