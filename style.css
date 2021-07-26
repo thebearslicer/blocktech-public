@@ -1,6 +1,6 @@
 h1 {
-    margin: 5px;
-    width: 500px;
-    height: 20px; 
-    color: darkblue
+    margin-right: auto;
+    margin-left: auto;
+    color: darkblue;
+    font-size: xx-large;   
 }
