@@ -1,14 +1,7 @@
-# pycraft
+# pycraft (name subject to change)
 Minecraft Clone made in ursina
 
-TODO:
-  more blocks
-  faster generations
-  optimiztions
-  items
-  inventory
-  npcs
-  UI
+This game is being moved to unity and is no longer open source. Repo will stay up for the github site.
 
 Art:
  Roaxial
