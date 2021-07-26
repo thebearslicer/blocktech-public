@@ -1,4 +1,7 @@
 body {
+    background-image: url("assets/screenshot.png");
+    background-repeat: no-repeat;
+    background-position: top;
     background-color: #3c3c3c;
 }
 
