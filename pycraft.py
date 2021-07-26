@@ -16,6 +16,7 @@ leaves_texture = load_texture("assets/textures/roax_leaves.png")
 stone_brick_texture = load_texture("assets/textures/roax_stone_bricks.png")
 planks_texture = load_texture("assets/textures/roax_planks.png")
 sky_texture = load_texture("assets/textures/roax_skybox.png")
+glass_texture = load_texture("assets/textures/llama_glass.png")
 format_texture = load_texture("assets/format.png")
 
 block_to_place = 1
@@ -74,6 +75,8 @@ class Voxel(Button):
                     self.place_block(stone_brick_texture)
                 if block_to_place == 7:
                     self.place_block(planks_texture)
+                if block_to_place == 8:
+                    self.place_block(glass_texture)
                     
     def place_block(self, texture):
         vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
