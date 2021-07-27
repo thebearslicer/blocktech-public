@@ -34,3 +34,15 @@ h1 {
     color: rgb(255, 255, 255);
     filter: drop-shadow(8px 8px rgb(82, 82, 82));
 }
+
+p1 {
+    font-family: "Minecraft";
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 14%;
+    transform: translate(-5%, -15%);
+    font-size: 75px;
+    color: white; 
+    filter: drop-shadow(8px 8px rgb(82, 82, 82));
+}
