@@ -1,5 +1,4 @@
-# pycraft (name subject to change)
-Minecraft Clone made in ursina
+BlockTech
 
 This game is being moved to unity and is no longer open source. Repo will stay up for the github site.
 
