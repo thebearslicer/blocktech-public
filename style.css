@@ -35,6 +35,18 @@ h1 {
     filter: drop-shadow(8px 8px rgb(82, 82, 82));
 }
 
+h2 {
+    font-family: "Minecraft";
+    position:  absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 80px;
+    color: white;
+    filter: drop-shadow(6px 6px rgb(82, 82, 82))
+}
+
 p1 {
     font-family: "Minecraft";
     position: absolute;
@@ -42,7 +54,7 @@ p1 {
     top: 50%;
     left: 14%;
     transform: translate(-5%, -15%);
-    font-size: 75px;
+    font-size: 60px;
     color: white; 
     filter: drop-shadow(8px 8px rgb(82, 82, 82));
 }
