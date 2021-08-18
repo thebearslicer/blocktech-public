@@ -1,23 +1,33 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from opensimplex import *
-from ursina.shaders import lit_with_shadows_shader
+from assets import *
 
 app = Ursina()
 app.title = "PyCraft"
 
-grass_texture = load_texture("assets/textures/roax_grass.png")
-stone_texture = load_texture("assets/textures/roax_stone.png")
-dirt_texture = load_texture("assets/textures/roax_dirt.png")
-wood_texture = load_texture("assets/textures/llama_wood.png")
-leaves_texture = load_texture("assets/textures/roax_leaves.png")
-stone_brick_texture = load_texture("assets/textures/roax_stone_bricks.png")
-planks_texture = load_texture("assets/textures/roax_planks.png")
-sky_texture = load_texture("assets/textures/roax_skybox.png")
-glass_texture = load_texture("assets/textures/llama_glass.png")
-format_texture = load_texture("assets/format.png")
+load_texture(grass_texture)
+load_texture(stone_texture)
+load_texture(dirt_texture)
+load_texture(wood_texture)
+load_texture(leaves_texture)
+load_texture(stone_brick_texture)
+load_texture(planks_texture)
+load_texture(sky_texture)
+load_texture(glass_texture)
+
 
 block_to_place = 1
+
+class Sky(Entity):
+    def __init__(self):
+        super().__init__(
+            parent = scene,
+            model = 'assets/block.obj',
+            texture = sky_texture,
+            scale = 200,
+            double_sided = True
+        )
 
 class TerrainGenerator:
     def create_random_heightmap(input_map):  # make sure input map is all zeros
@@ -65,28 +75,6 @@ class TerrainGenerator:
         behind_leaf  = Voxel(pos=(1 + x, 3 + y, z + 2), given_texture=leaves_texture)
         forward_leaf = Voxel(pos=(1 + x, 3 + y, z + 0), given_texture=leaves_texture)
     
-terrain = TerrainGenerator
-
-player = FirstPersonController()
-
-sky = Sky()
-
-def update():
-    global block_to_place
-    if held_keys['1']: block_to_place = 1
-    if held_keys['2']: block_to_place = 2
-    if held_keys['3']: block_to_place = 3
-    if held_keys['4']: block_to_place = 4
-    if held_keys['5']: block_to_place = 5
-    if held_keys['6']: block_to_place = 6
-    if held_keys['7']: block_to_place = 7
-    if held_keys['8']: block_to_place = 8
-    if held_keys['9']: block_to_place = 9
-    
-    if player.y < -50:
-        player.position = (0, 1, 0)    
-
-    
 class Voxel(Button):
     def __init__(self, pos=(0, 0, 0), given_texture='white_cube'):
         super().__init__(
@@ -128,40 +116,28 @@ class Voxel(Button):
         if self.position + mouse.normal - player.position  < 6:
             vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
 
+terrain = TerrainGenerator
 
-class Sky(Entity):
-    def __init__(self):
-        super().__init__(
-            parent = scene,
-            model = 'assets/block.obj',
-            texture = sky_texture,
-            scale = 200,
-            double_sided = True
-        )
-        
+player = FirstPersonController()
 
+sky = Sky()
 
-
-
-heightmap = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-]
-
-
-
+def update():
+    global block_to_place
+    if held_keys['1']: block_to_place = 1
+    if held_keys['2']: block_to_place = 2
+    if held_keys['3']: block_to_place = 3
+    if held_keys['4']: block_to_place = 4
+    if held_keys['5']: block_to_place = 5
+    if held_keys['6']: block_to_place = 6
+    if held_keys['7']: block_to_place = 7
+    if held_keys['8']: block_to_place = 8
+    if held_keys['9']: block_to_place = 9
+    
+    if player.y < -50:
+        player.position = (0, 1, 0)    
 
 terrain.generate_chunk(terrain.create_heightmap(16, 16), grass_texture, grass_texture,  False)
 terrain.generate_tree(random.randint(1, 14), 1, random.randint(1, 14))
-
-
 
 app.run()
