@@ -58,7 +58,8 @@ class Voxel(Button):
     def input(self, key):
         if self.hovered:
             if key == 'left mouse down':
-                destroy(self)
+                if self.position + mouse.normal - player.position  < 6:
+                    destroy(self)
 
             if key == 'right mouse down':
                 if block_to_place == 1:
@@ -79,7 +80,9 @@ class Voxel(Button):
                     self.place_block(glass_texture)
                     
     def place_block(self, texture):
-        vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
+        if self.position + mouse.normal - player.position  < 6:
+            vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
+
 
 class Sky(Entity):
     def __init__(self):
