@@ -1,3 +1,4 @@
+from re import S
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from opensimplex import *
@@ -148,12 +149,19 @@ class Hotbar(Entity):
             parent = camera.ui,
             position= pos,
             model = "quad",
-            scale = (.3, .1),                                           
+            scale = (.1, .1),                                           
             origin = org,                                                                                
             texture = slot_texture,                                     
-            texture_scale = (3,1)                                  
-            # color = color.gray  
+            texture_scale = (1,1),                                  
+            color = color.white
         )
+        
+    def highlight(self):
+        self.color = color.rgb(200, 200, 200)
+    
+    def unhighlight(self):
+        self.color = color.white
+        
 
 
 # Class Zombie(Button)
@@ -170,7 +178,7 @@ sky = Sky()
 def update():
     global block_to_place
     if held_keys['1']: block_to_place = 1
-    if held_keys['2']: block_to_place = 2
+    if held_keys['2']: block_to_place = 2 
     if held_keys['3']: block_to_place = 3
     if held_keys['4']: block_to_place = 4
     if held_keys['5']: block_to_place = 5
@@ -178,6 +186,17 @@ def update():
     if held_keys['7']: block_to_place = 7
     if held_keys['8']: block_to_place = 8
     if held_keys['9']: block_to_place = 9
+    
+    try:
+        hotbars[block_to_place - 1].highlight()
+        
+        for i in range(len(hotbars)):
+            if i != block_to_place - 1: 
+                hotbars[i].unhighlight()
+        
+    except IndexError:
+        pass
+    
     
     if player.y < -50:
         player.position = (0, 1, 0)    
@@ -193,9 +212,17 @@ def update():
 
 terrain.generate_chunk(terrain.create_heightmap(16, 16), grass_texture, grass_texture,  False)
 terrain.generate_tree(random.randint(1, 14), 1, random.randint(1, 14))
-testItem = Item(pos=(5, 1, 5), given_texture=grass_texture, item_type="grass_block")
-testHotbar = Hotbar(pos=(-0.6, 0.1), given_texture=slot_texture)
-testHotbar2 = Hotbar(pos=(0.2, 0.1), org= (-1, 5), given_texture=slot_texture)
 
+testItem = Item(pos=(5, 1, 5), given_texture=grass_texture, item_type="grass_block")
+
+Hotbar0 = Hotbar (pos=(-0.4, 0.1), org= (-.5, 5), given_texture=slot_texture)
+Hotbar1 = Hotbar (pos=(-0.3, 0.1), org= (-.5, 5), given_texture=slot_texture)
+Hotbar2 = Hotbar (pos=(-0.2, 0.1), org= (-.5, 5), given_texture=slot_texture)
+
+Hotbar3 = Hotbar (pos=(0.0, 0.1), org= (-0.5, 5), given_texture=slot_texture)
+Hotbar4 = Hotbar (pos=(0.1, 0.1), org= (-0.5, 5), given_texture=slot_texture)
+Hotbar5 = Hotbar (pos=(0.2, 0.1), org= (-0.5, 5), given_texture=slot_texture)
+
+hotbars = [Hotbar0, Hotbar1, Hotbar2, Hotbar3, Hotbar4, Hotbar5]
 
 app.run()
