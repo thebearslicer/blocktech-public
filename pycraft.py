@@ -16,6 +16,7 @@ load_texture(stone_brick_texture)
 load_texture(planks_texture)
 load_texture(sky_texture)
 load_texture(glass_texture)
+load_texture(slot_texture)
 
 
 block_to_place = 1
@@ -120,7 +121,7 @@ class Voxel(Button):
             vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
 
 class Item(Entity):
-    def __init__(self, item_type, pos=(0, 0, 0), given_texture='white_cube'):
+    def __init__(self, item_type, pos=(0, 0), given_texture='white_cube'):
         super().__init__(
             item_type=item_type,
             parent=scene,
@@ -132,7 +133,7 @@ class Item(Entity):
             color=color.color(0, 0, random.uniform(0.9, 1)),
             # shader=lit_with_shadows_shader
         )
-        self.position -= (0,0.5,0)
+        self.position -= (0,0.25,0)
         
         items.append(self)
     
@@ -141,6 +142,24 @@ class Item(Entity):
         self.enabled = False
         # items.remove(self)
         
+class Hotbar(Entity):
+    def __init__(self, pos=(0, 0), given_texture='white_cube', org = (-.5, 5)):
+        super().__init__(
+            parent = camera.ui,
+            position= pos,
+            model = "quad",
+            scale = (.3, .1),                                           
+            origin = org,                                                                                
+            texture = slot_texture,                                     
+            texture_scale = (3,1)                                  
+            # color = color.gray  
+        )
+
+
+# Class Zombie(Button)
+# use vector stuff to get direction
+# use similar distance check to items to see how close
+# button so that you can click on zombie
         
 terrain = TerrainGenerator
 
@@ -175,8 +194,8 @@ def update():
 terrain.generate_chunk(terrain.create_heightmap(16, 16), grass_texture, grass_texture,  False)
 terrain.generate_tree(random.randint(1, 14), 1, random.randint(1, 14))
 testItem = Item(pos=(5, 1, 5), given_texture=grass_texture, item_type="grass_block")
-testItem = Item(pos=(6, 1, 5), given_texture=grass_texture, item_type="grass_block1")
-testItem = Item(pos=(5, 1, 6), given_texture=grass_texture, item_type="grass_block2")
-testItem = Item(pos=(6, 1, 6), given_texture=grass_texture, item_type="grass_block3")
+testHotbar = Hotbar(pos=(-0.6, 0.1), given_texture=slot_texture)
+testHotbar2 = Hotbar(pos=(0.2, 0.1), org= (-1, 5), given_texture=slot_texture)
+
 
 app.run()
