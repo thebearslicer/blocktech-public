@@ -139,7 +139,7 @@ class Item(Entity):
     def pick_up(self):
         print("Picked up", self.item_type)
         self.enabled = False
-        items.remove(self)
+        # items.remove(self)
         
         
 terrain = TerrainGenerator
@@ -162,10 +162,9 @@ def update():
     
     if player.y < -50:
         player.position = (0, 1, 0)    
-
-    testItem.rotation_y -= 1
     
     for i in range(len(items)):
+        items[i].rotation_y -= 1
         distance_between_item_and_player = (abs((player.position.x - items[i].position.x)), abs((player.position.z - items[i].position.z)))
      
         if distance_between_item_and_player < (1, 1):
@@ -176,4 +175,8 @@ def update():
 terrain.generate_chunk(terrain.create_heightmap(16, 16), grass_texture, grass_texture,  False)
 terrain.generate_tree(random.randint(1, 14), 1, random.randint(1, 14))
 testItem = Item(pos=(5, 1, 5), given_texture=grass_texture, item_type="grass_block")
+testItem = Item(pos=(6, 1, 5), given_texture=grass_texture, item_type="grass_block1")
+testItem = Item(pos=(5, 1, 6), given_texture=grass_texture, item_type="grass_block2")
+testItem = Item(pos=(6, 1, 6), given_texture=grass_texture, item_type="grass_block3")
+
 app.run()
