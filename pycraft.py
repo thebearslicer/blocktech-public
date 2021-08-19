@@ -2,6 +2,7 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from opensimplex import *
 from assets import *
+import math
 
 app = Ursina()
 app.title = "PyCraft"
@@ -18,6 +19,8 @@ load_texture(glass_texture)
 
 
 block_to_place = 1
+global items
+items = []
 
 class Sky(Entity):
     def __init__(self):
@@ -116,6 +119,29 @@ class Voxel(Button):
         if self.position + mouse.normal - player.position  < 6:
             vox = Voxel(pos=(self.position + mouse.normal), given_texture=texture)
 
+class Item(Entity):
+    def __init__(self, item_type, pos=(0, 0, 0), given_texture='white_cube'):
+        super().__init__(
+            item_type=item_type,
+            parent=scene,
+            position=pos,
+            model='assets/block.obj',
+            origin=(0, 0.5, 0),
+            texture=given_texture,
+            scale=0.2,
+            color=color.color(0, 0, random.uniform(0.9, 1)),
+            # shader=lit_with_shadows_shader
+        )
+        self.position -= (0,0.5,0)
+        
+        items.append(self)
+    
+    def pick_up(self):
+        print("Picked up", self.item_type)
+        self.enabled = False
+        items.remove(self)
+        
+        
 terrain = TerrainGenerator
 
 player = FirstPersonController()
@@ -137,7 +163,17 @@ def update():
     if player.y < -50:
         player.position = (0, 1, 0)    
 
+    testItem.rotation_y -= 1
+    
+    for i in range(len(items)):
+        distance_between_item_and_player = (abs((player.position.x - items[i].position.x)), abs((player.position.z - items[i].position.z)))
+     
+        if distance_between_item_and_player < (1, 1):
+            items[i].pick_up()
+
+
+
 terrain.generate_chunk(terrain.create_heightmap(16, 16), grass_texture, grass_texture,  False)
 terrain.generate_tree(random.randint(1, 14), 1, random.randint(1, 14))
-
+testItem = Item(pos=(5, 1, 5), given_texture=grass_texture, item_type="grass_block")
 app.run()
